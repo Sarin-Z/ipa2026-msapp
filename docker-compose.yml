@@ -13,6 +13,18 @@ services:
       MONGO_URI: "mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/"
       DB_NAME: "ipa2026_db"
 
+  scheduler:
+    build: ./scheduler
+    env_file:
+      - .env
+    environment:
+      MONGO_URI: "mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/"
+    depends_on:
+      - mongo
+      - rabbitmq
+    networks:
+      - app-net
+
   mongo:
     image: mongo:6
     ports:
@@ -23,6 +35,17 @@ services:
       - app-net
     env_file:
       - .env
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+    networks:
+      - app-net
 
 volumes:
   mongo-data:
