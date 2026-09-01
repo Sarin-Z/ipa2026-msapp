@@ -1,2 +1,2 @@
-pika
-pymongo
+pika==1.4.4
+pymongo==4.17.0

@@ -47,6 +47,20 @@ services:
     networks:
       - app-net
 
+  worker:
+    build: ./worker
+    env_file:
+      - .env
+    environment:
+      MONGO_URI: "mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/"
+      DB_NAME: "ipa2026_db"
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
+    depends_on:
+      - mongo
+      - rabbitmq
+    networks:
+      - app-net
 volumes:
   mongo-data:
 
