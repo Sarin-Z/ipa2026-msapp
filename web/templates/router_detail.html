@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Router Detail</title>
+</head>
+<body style="background-color: #b0c4de; font-family: sans-serif; padding: 20px;">
+    <h2>Router: {{ router_ip }}</h2>
+
+    <table border="1" cellpadding="3" cellspacing="0" style="background-color: #c0c0c0; border-collapse: collapse;">
+        <thead>
+            <tr style="background-color: #b0b0b0;">
+                <th>Timestamp</th>
+                <th>Interface</th>
+                <th>IP Address</th>
+                <th>Status</th>
+                <th>Protocol</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+                {% for intf in record.interfaces %}
+                <tr>
+                    <td>{{ record.timestamp }}</td>
+                    <td>{{ intf.interface }}</td>
+                    <td>{{ intf.ip_address }}</td>
+                    <td>{{ intf.status }}</td>
+                    <td>{{ intf.proto }}</td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
