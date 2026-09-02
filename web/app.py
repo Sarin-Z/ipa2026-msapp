@@ -49,7 +49,7 @@ def delete_comment():
 def router_detail(router_ip):
 
     records = list(
-        interface_status.find({"router_ip": router_ip}).sort("timestamp", -1).limit(3)
+        interface_status.find({"router_ip": router_ip}).sort("timestamp", -1).limit(4)
     )
     return render_template("router_detail.html", router_ip=router_ip, records=records)
 
